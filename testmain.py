@@ -3,7 +3,7 @@ Created on 20/02/2015
 
 @author: dongshichao
 '''
-import zombie
+from zombie import zombie
 import numpy as np
 from creature import Creature
 
@@ -18,7 +18,7 @@ victims =[]
 
 for vi in poors_positions:
 	temp = Creature(vi)
-	victims += temp
+	victims.append(temp)
 
 grid[Zombie.current_position] = 1
 for i in victims:
