@@ -10,6 +10,24 @@ class zombie(Creature):
     this is the definition of the zombies
     '''
     current_position = (0, 0)
+    scores = 0
+
+    def makemove(self,str):
+        if str == "U":
+            return self.up()
+        elif str == "D":
+            return self.down()
+        elif str == "R":
+            return self.right()
+        elif str == "L":
+            return self.left()
+        else:
+            print "Wrong move input!"
+
+    def move(self,steps,grid):
+        for m in steps:
+            self.makemove(m)
+            self.score(grid)
     
     def up(self):
         self.transin()
@@ -30,6 +48,10 @@ class zombie(Creature):
         self.transin()
         self.current_position = (self.current_position[0]+1,self.current_position[1])
         self.transin()
+
+    def score(self,grid):
+        if grid[self.current_position] == 2:
+            self.scores += 1
         
     def __init__(self, initposition):
         '''
@@ -37,6 +59,8 @@ class zombie(Creature):
         '''
         Creature.__init__(self, initposition)
 
+
+
 z = zombie((0,1))
-z.up()
+z.makemove("U")
 print z.current_position
