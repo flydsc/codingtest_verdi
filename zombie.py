@@ -58,9 +58,3 @@ class zombie(Creature):
         Constructor
         '''
         Creature.__init__(self, initposition)
-
-
-
-z = zombie((0,1))
-z.makemove("U")
-print z.current_position
