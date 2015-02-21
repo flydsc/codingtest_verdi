@@ -37,10 +37,12 @@ class control():
 		print self.Zombie.scores
 
 if __name__ == '__main__':
-	dimension = 4
+	dimension = raw_input()
 	moves = "LURRDD"
 	zombie_position = (1,1)
 	poors_positions = [(0,0),(2,2),(0,2)]
 
 	contr = control(dimension,moves,zombie_position,poors_positions)
 	contr.go()
+
+# def inputdata():
