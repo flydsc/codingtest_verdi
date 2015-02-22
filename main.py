@@ -97,11 +97,37 @@ def input_zombie():
 	zombie = input_zombie_correction(temp_cos)
 	return (int(zombie[0]),int(zombie[1]))
 
+def input_poor_correction(temp_cos):
+	temp_new = temp_cos.split(" ")
+	input_check = input_zombie_checked(temp_new)	
+	while(not input_check):
+		print("There seems to be something wrong with your input, please try again\n")
+		input_poors()
+	return temp_new
+
+def input_poors_muilti(temp):
+	temp_coo = temp.split(",")
+	poors = []
+	if len(temp_coo) == 0 :
+		return None
+	else:
+		for i in temp_coo:
+			creature = input_poor_correction(i)
+			print creature
+			poors.append((int(creature[0]),int(creature[1])))
+	return poors
+
+def input_poors():
+	temp = raw_input("please input the Creature coordinates: \n")
+	poors = input_poors_muilti(temp)
+	return poors
+
 def play():
 	dimension = input_dimension()
 	moves = input_move()
 	zombie_position = input_zombie()#coordinate
-	poors_positions = [(0,0),(2,2),(0,2)]
+	
+	poors_positions = input_poors()#[(0,0),(2,2),(0,2)]
 	contr = control(dimension,moves,zombie_position,poors_positions)
 	contr.go()
 	
