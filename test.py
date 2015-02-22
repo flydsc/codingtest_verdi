@@ -8,6 +8,7 @@ class TestmainFunction(unittest.TestCase):
 	def setUp(self):
 		self.dimension = 4
 		self.z = zombie((1,1))
+		self.z.boun = self.dimension
 		self.c = Creature((1,2))
 		self.poors_positions = [(0,0),(2,2),(0,2)]
 		self.grid = np.zeros((4,4))
@@ -39,7 +40,7 @@ class TestmainFunction(unittest.TestCase):
 
 	def test_right(self):
 		self.z.right()
-		t = zombie((2,1))
+		t = zombie((2,1))	
 		self.assertEqual(self.z.current_position, t.current_position)
 		t = None
 

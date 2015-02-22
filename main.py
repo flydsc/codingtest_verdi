@@ -75,59 +75,62 @@ def input_dimension():
 	dimension = int(input_dimension_correction(temp_di))
 	return dimension 
 
-def input_zombie_checked(temp_cos):
+def input_zombie_checked(temp_cos,dimension):
 	if len(temp_cos) != 2:
 		return False
 	elif not (re.match("^[0-9]+$",temp_cos[0]) and re.match("^[0-9]+$",temp_cos[1])):
 		return False
+	elif int(temp_cos[0])>dimension or int(temp_cos[1])>dimension:
+		return False
 	else:
 		return True
 	
-def input_zombie_correction(temp_cos):
-	input_check = input_zombie_checked(temp_cos)	
+def input_zombie_correction(temp_cos,dimension):
+	input_check = input_zombie_checked(temp_cos,dimension)	
 	while(not input_check):
 		temp = raw_input("There seems to be something wrong with your input, please try again\n")
 		temp_cos = temp.split(" ")
-		input_check = input_zombie_checked(temp_cos)
+		input_check = input_zombie_checked(temp_cos,dimension)
 	return temp_cos
 
-def input_zombie():
+def input_zombie(dimension):
 	temp = raw_input("please input the zombie coordinate: \n")
 	temp_cos = temp.split(" ")
-	zombie = input_zombie_correction(temp_cos)
+	zombie = input_zombie_correction(temp_cos,dimension)
 	return (int(zombie[0]),int(zombie[1]))
 
-def input_poor_correction(temp_cos):
+def input_poor_correction(temp_cos,dimension):
 	temp_new = temp_cos.split(" ")
-	input_check = input_zombie_checked(temp_new)	
+	input_check = input_zombie_checked(temp_new,dimension)	
 	while(not input_check):
 		print("There seems to be something wrong with your input, please try again\n")
 		input_poors()
 	return temp_new
 
-def input_poors_muilti(temp):
+def input_poors_muilti(temp,dimension):
 	temp_coo = temp.split(",")
 	poors = []
 	if len(temp_coo) == 0 :
 		return None
 	else:
 		for i in temp_coo:
-			creature = input_poor_correction(i)
-			print creature
+			creature = input_poor_correction(i,dimension)
 			poors.append((int(creature[0]),int(creature[1])))
 	return poors
 
-def input_poors():
+def input_poors(dimension):
 	temp = raw_input("please input the Creature coordinates: \n")
-	poors = input_poors_muilti(temp)
+	poors = input_poors_muilti(temp,dimension)
 	return poors
 
 def play():
 	dimension = input_dimension()
+	zombie_position = input_zombie(dimension-1)
+	poors_positions = input_poors(dimension-1)
 	moves = input_move()
-	zombie_position = input_zombie()#coordinate
+	#coordinate
 	
-	poors_positions = input_poors()#[(0,0),(2,2),(0,2)]
+	#[(0,0),(2,2),(0,2)]
 	contr = control(dimension,moves,zombie_position,poors_positions)
 	contr.go()
 	
