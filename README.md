@@ -1,5 +1,6 @@
 # codingtest_verdi
 this is coding test from verdi
+
 Code Question:
 
 ===============================================================================================
@@ -55,3 +56,5 @@ creature.py and zombie.py are used to create two main elements in the project, p
 main.py is used to control the system and test.py is test module
 
 To run the project, you can import it into eclipse with plugin named Pydev(http://pydev.org/) and run the main.py
+
+and this project is on github now:https://github.com/flydsc/codingtest_verdi
