@@ -26,9 +26,9 @@ class control():
 		for vi in self.poors_positions:
 			temp = Creature(vi)
 			self.victims.append(temp)
-		self.grid[self.Zombie.current_position] = 1
+		self.grid[self.Zombie.get_current_position()] = 1
 		for i in self.victims:
-			self.grid[i.current_position] = 2	
+			self.grid[i.get_current_position()] = 2	
 
 	#make move
 	def go(self):
@@ -125,11 +125,10 @@ def input_poors(dimension):
 
 def play():
 	dimension = input_dimension()
+		#coordinate
 	zombie_position = input_zombie(dimension-1)
 	poors_positions = input_poors(dimension-1)
 	moves = input_move()
-	#coordinate
-	
 	#[(0,0),(2,2),(0,2)]
 	contr = control(dimension,moves,zombie_position,poors_positions)
 	contr.go()

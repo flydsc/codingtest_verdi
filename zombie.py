@@ -4,17 +4,27 @@ Created on 21/02/2015
 @author: dongshichao
 '''
 from creature import Creature
-from matplotlib.pyplot import grid
 
 class zombie(Creature):
     '''
     this is the definition of the zombies
     '''
-    current_position = (0, 0)
     scores = 0
-    boun = 0
+    boundary = 0
+    
+    def set_boundary(self,num):
+        self.boundary = num
+        
+    def get_boundary(self):
+        return self.boundary
+        
+    def set_score(self, num):
+        self.scores = num
+    
+    def get_score(self):
+        return self.scores
 
-    def makemove(self,str):
+    def makemove(self, str):
         if str == "U":
             return self.up()
         elif str == "D":
@@ -26,50 +36,51 @@ class zombie(Creature):
         else:
             print "Wrong move input!"
 
-    def move(self,steps,grid):
-        self.boun = grid.shape[0]
+    def move(self, steps, grid):
+        self.set_boundary(grid.shape[0])
         for m in steps:
             self.makemove(m)
             self.score(grid)
     
     def up(self):
         self.transin()
-        if self.current_position[1]-1 < 0:
-            self.current_position = (self.current_position[0],0)
+        if self.get_current_position()[1] - 1 < 0:
+            self.set_current_position(self.get_current_position()[0], 0)
         else:
-            self.current_position = (self.current_position[0],self.current_position[1]-1)
+            self.set_current_position(self.get_current_position()[0], self.get_current_position()[1] - 1)
         self.transin()
         
     def down(self):
         self.transin()
-        if self.current_position[1]+1 > self.boun:
-            self.current_position = (self.current_position[0],self.boun)
+        if self.get_current_position()[1] + 1 > self.get_boundary():
+            self.set_current_position(self.get_current_position()[0], self.get_boundary())
         else:
-            self.current_position = (self.current_position[0],self.current_position[1]+1)
+            self.set_current_position(self.get_current_position()[0], self.get_current_position()[1] + 1)
         self.transin()
         
     def left(self):
         self.transin()
-        if self.current_position[0]-1 < 0:
-            self.current_position = (0,self.current_position[1])
+        if self.get_current_position()[0] - 1 < 0:
+            self.set_current_position(0, self.get_current_position()[1])
         else:
-            self.current_position = (self.current_position[0]-1,self.current_position[1])
+            self.set_current_position(self.get_current_position()[0] - 1, self.get_current_position()[1])
         self.transin()
         
     def right(self):
         self.transin()
-        if self.current_position[0] + 1 > self.boun:
-            self.current_position = (self.boun,self.current_position[1])
+        if self.get_current_position()[0] + 1 > self.get_boundary():
+            self.set_current_position(self.get_boundary(), self.get_current_position()[1])
         else:
-            self.current_position = (self.current_position[0]+1,self.current_position[1])
+            self.set_current_position(self.get_current_position()[0] + 1, self.get_current_position()[1])
         self.transin()
 
-    def score(self,grid):
-        if grid[self.current_position] == 2:
-            self.scores += 1
+    def score(self, grid):
+        if grid[self.get_current_position()] == 2:
+            self.set_score(self.get_score() + 1)
         
     def __init__(self, initposition):
         '''
         Constructor
         '''
         Creature.__init__(self, initposition)
+        self.set_score(0)

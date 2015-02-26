@@ -1,6 +1,7 @@
 from zombie import zombie
 from creature import Creature
-from main import control
+# from main import 
+import main
 import unittest
 import numpy as np
 
@@ -8,7 +9,7 @@ class TestmainFunction(unittest.TestCase):
 	def setUp(self):
 		self.dimension = 4
 		self.z = zombie((1,1))
-		self.z.boun = self.dimension
+		self.z.boundary = self.dimension
 		self.c = Creature((1,2))
 		self.poors_positions = [(0,0),(2,2),(0,2)]
 		self.grid = np.zeros((4,4))
@@ -21,27 +22,27 @@ class TestmainFunction(unittest.TestCase):
 	def test_up(self):
 		self.z.up()
 		t = zombie((1,0))
-		self.assertEqual(self.z.current_position, t.current_position)
+		self.assertEqual(self.z.get_current_position(), t.get_current_position())
 		t = None
 
 
 	def test_down(self):
 		self.z.down()
 		t = zombie((1,2))
-		self.assertEqual(self.z.current_position, t.current_position)
+		self.assertEqual(self.z.get_current_position(), t.get_current_position())
 		t = None
 
 	def test_left(self):
 		self.z.left()
 		t = zombie((0,1))
-		self.assertEqual(self.z.current_position, t.current_position)
+		self.assertEqual(self.z.get_current_position(), t.get_current_position())
 		t = None
 
 
 	def test_right(self):
 		self.z.right()
 		t = zombie((2,1))	
-		self.assertEqual(self.z.current_position, t.current_position)
+		self.assertEqual(self.z.get_current_position(), t.get_current_position())
 		t = None
 
 	def test_move(self):
@@ -52,7 +53,7 @@ class TestmainFunction(unittest.TestCase):
 		self.assertEqual(self.c.current_position,(2,1))
 
 	def test_go(self):
-		c = control(self.dimension,self.moves,(1,1),self.poors_positions)
+		c = main.control(self.dimension,self.moves,(1,1),self.poors_positions)
 		c.go()
 		self.assertEqual(c.Zombie.scores, 2)
 
